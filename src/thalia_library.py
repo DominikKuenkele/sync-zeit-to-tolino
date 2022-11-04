@@ -12,6 +12,9 @@ log = logging.getLogger(__name__)
 class SynchronizationError(Exception):
     pass
 
+class LoginError(Exception):
+    pass
+
 
 class ThaliaLibrary():
     def __init__(self, driver: WebDriver) -> None:
@@ -63,6 +66,7 @@ class ThaliaLibrary():
 
 class ThaliaLogin():
     LOGIN_URL = 'https://www.thalia.de/auth/oauth2/authorize?client_id=webreader&response_type=code&scope=SCOPE_BOSH&redirect_uri=https%3A%2F%2Fwebreader.mytolino.com%2Flibrary%2Findex.html%23%2Fmybooks%2Ftitles&x_buchde.skin_id=17&x_buchde.mandant_id=2'
+    WRONG_CREDENTIALS_MESSAGE = 'Ihre Anmeldung war nicht erfolgreich. Bitte versuchen Sie es erneut.'
 
     def __init__(self, driver: WebDriver) -> None:
         self.driver = driver
@@ -73,8 +77,14 @@ class ThaliaLogin():
         self.driver.find_element(By.ID, 'j_username').send_keys(username)
         self.driver.find_element(By.ID, 'j_password').send_keys(password)
         self.driver.find_element(By.NAME, 'login').click()
-
         time.sleep(2)
+
+        if self.WRONG_CREDENTIALS_MESSAGE in self.driver.page_source:
+            message = 'couldn\'t login to Thalia. Credentials might be wrong'
+            log.error(message)
+            raise LoginError(message)
+        
+        log.info('logged into Thalia.')
         WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
             (By.CSS_SELECTOR, 'div[data-test-id=\'ftu-country-de-DE\']'))).click()
         WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
