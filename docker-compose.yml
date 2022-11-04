@@ -3,3 +3,8 @@ services:
   sync-zeit-to-tolino:
     image: dominikkuenkele/sync-zeit-to-tolino:latest
     restart: always
+    environment:
+      - ZEIT_USER='${ZEIT_USER}'
+      - ZEIT_PASSWORD='${ZEIT_PASSWORD}'
+      - THALIA_USER='${THALIA_USER}'
+      - THALIA_PASSWORD='${THALIA_PASSWORD}'
