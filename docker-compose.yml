@@ -1,0 +1,5 @@
+version: "3.9"
+services:
+  sync-zeit-to-tolino:
+    image: dominikkuenkele/sync-zeit-to-tolino:latest
+    restart: always
