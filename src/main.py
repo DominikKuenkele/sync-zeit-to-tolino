@@ -5,9 +5,9 @@ import zipfile
 
 from lxml import etree
 
-from src.webdriver import get_webdriver, DOWNLOAD_PATH
-from src.zeit_epaper import ZeitEPaper
-from src.thalia_library import ThaliaLogin
+from webdriver import get_webdriver, DOWNLOAD_PATH
+from zeit_epaper import ZeitEPaper
+from thalia_library import ThaliaLogin
 
 
 logging.basicConfig(level=logging.INFO)

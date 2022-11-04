@@ -26,8 +26,8 @@ class ThaliaLibrary():
             ok_button.click()
 
         # navigate to 'my books'
-        self.driver.find_element(
-            By.CSS_SELECTOR, 'span[data-test-id=\'library-drawer-MyBooks\']').click()
+        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
+            (By.CSS_SELECTOR, 'span[data-test-id=\'library-drawer-MyBooks\']'))).click()
         time.sleep(1)
 
     def upload(self, file_path: str, e_paper_title: str) -> None:
@@ -74,11 +74,12 @@ class ThaliaLogin():
         self.driver.find_element(By.ID, 'j_password').send_keys(password)
         self.driver.find_element(By.NAME, 'login').click()
 
-        WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(
+        time.sleep(2)
+        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
             (By.CSS_SELECTOR, 'div[data-test-id=\'ftu-country-de-DE\']'))).click()
-        self.driver.find_element(
-            By.CSS_SELECTOR, 'div[data-test-id=\'ftu-resellerLogo-3\']').click()
-        self.driver.find_element(
-            By.CSS_SELECTOR, 'div[data-test-id=\'library-drawer-buttonLogin\']').click()
+        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
+            (By.CSS_SELECTOR, 'div[data-test-id=\'ftu-resellerLogo-3\']'))).click()
+        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(
+            (By.CSS_SELECTOR, 'div[data-test-id=\'library-drawer-buttonLogin\']'))).click()
 
         return ThaliaLibrary(self.driver)

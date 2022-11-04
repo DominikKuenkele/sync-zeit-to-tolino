@@ -1,14 +1,16 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
-
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 class ZeitIssue():
     def __init__(self, driver: WebDriver) -> None:
         self.driver = driver
 
     def download_file(self) -> str:
-        link_elem: WebElement = self.driver.find_element(By.LINK_TEXT, 'EPUB FÜR E-READER LADEN')
+        link_elem = WebDriverWait(self.driver, 10).until(
+                expected_conditions.presence_of_element_located((By.LINK_TEXT, 'EPUB FÜR E-READER LADEN')))
+
         file_name = link_elem.get_attribute('href').split('/')[-1]
         link_elem.click()
         return file_name
