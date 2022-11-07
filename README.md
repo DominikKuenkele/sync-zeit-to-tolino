@@ -15,7 +15,7 @@ Clone this repository and first export some evironment variables:
 ```bash
 export ZEIT_USER=<zeit-user>
 export ZEIT_PASSWORD=<zeit-password>
-export THALIA_USER=<thalia-password>
+export THALIA_USER=<thalia-user>
 export THALIA_PASSWORD=<thalia-password>
 ```
 Then run the following commands:
