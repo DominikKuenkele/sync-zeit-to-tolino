@@ -9,8 +9,13 @@ The reason for creating a new repository was mainly to have a small lightweight 
 
 ## Usage
 You can use `docker` or respectivley `docker-compose` to run the synchronisation. This will create a container with a cron job that syncs the e-paper every Wednesday at 18:15 after the release of the new issue.
+
+Clone this repository:
+```bash
+git clone https://github.com/DominikKuenkele/sync-zeit-to-tolino && cd sync-zeit-to-tolino
+```
 ### docker
-Clone this repository and first export some evironment variables:
+First export some environment variables:
 
 ```bash
 export ZEIT_USER=<zeit-user>
@@ -18,7 +23,7 @@ export ZEIT_PASSWORD=<zeit-password>
 export THALIA_USER=<thalia-user>
 export THALIA_PASSWORD=<thalia-password>
 ```
-Then run the following commands:
+Then run the following commands to build and start the container:
 ```bash
 docker build . -t sync-zeit-to-tolino
 docker run -it sync-zeit-to-tolino
@@ -26,7 +31,7 @@ docker run -it sync-zeit-to-tolino
 
 ### docker-compose
 Alternatively, you can use docker-compose. 
-First, create a `.env` file based on `.env.example` and fill the variables. Then, create the following docker-compose file (you may replace the image by `build: .` to use this repo) and run `docker-compose up`.
+First, create a `.env` file based on `.env.example` and fill the variables. Then, create the following docker-compose file (you may replace the image by `build: .` to build it yourself) and run `docker-compose up`.
 ```yml
 version: "3.9"
 services:
